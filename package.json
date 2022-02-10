@@ -1,0 +1,15 @@
+{
+  "name": "",
+  "version": "",
+  "homepage": "https://meshx.co/open-source/fiber",
+  "workspaces": [
+    "pkg/**/*",
+    "sdk/**/*"
+  ],
+  "scripts": {
+    "start": "node ./bin/www",
+    "build": "",
+    "publish:sdk": ""
+  },
+  "dependencies": {}
+}
