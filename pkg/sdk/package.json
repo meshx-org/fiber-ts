@@ -1,0 +1,12 @@
+{
+  "name": "@fiber/sdk",
+  "version": "0.0.0",
+  "main": "target/index.js",
+  "types": "target/index.d.ts",
+  "scripts": {
+    "compile": "tsc"
+  },
+  "dependencies": {
+    "@fiber/types": "^0.0.0"
+  }
+}

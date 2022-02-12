@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "pkg/sdk"
+    },
+    {
+      "path": "pkg/kernel"
+    },
+  ]
+}

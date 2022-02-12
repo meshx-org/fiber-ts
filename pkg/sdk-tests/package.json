@@ -1,0 +1,14 @@
+{
+  "name": "@fiber/sdk-tests",
+  "version": "0.0.0",
+  "private": true,
+  "main": "target/index.js",
+  "types": "target/index.d.ts",
+  "scripts": {
+    "compile": ""
+  },
+  "dependencies": {
+    "@fiber/sdk": "^0.0.0",
+    "@fiber/kernel": "^0.0.0"
+  }
+}
