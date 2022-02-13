@@ -1,7 +1,7 @@
 import { Handle } from './handle'
 
 /// A base class for classes that wrap Handles.
-class HandleWrapper {
+export class HandleWrapper {
   #handle: Handle | null
 
   protected constructor(handle: Handle | null) {
@@ -41,7 +41,7 @@ class HandleWrapper {
 }
 
 /// A base class for classes that wrap a pair of Handles.
-abstract class HandleWrapperPair<T> {
+export abstract class HandleWrapperPair<T> {
   #first: T
   #second: T
 
@@ -55,4 +55,3 @@ abstract class HandleWrapperPair<T> {
   }
 }
 
-export { HandleWrapper, HandleWrapperPair }
