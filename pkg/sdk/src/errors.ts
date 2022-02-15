@@ -1,6 +1,7 @@
 class NotInitialized extends Error {
 
 
+
   
 }
 
