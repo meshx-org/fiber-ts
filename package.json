@@ -7,7 +7,8 @@
     "./pkg/*"
   ],
   "lint-staged": {
-    "**/*.ts": "prettier --write --ignore-unknown"
+    "*.{js,tsx}": "eslint",
+    "*.{js,tsx,json}": "prettier --ignore-unknown --write"
   },
   "scripts": {
     "prepare": "husky install",
