@@ -1,11 +1,11 @@
-import { System } from "@fiber/sdk"
+import { System, IDispatchSyscall } from "@fiber/sdk"
 
-const hostCall = () => {
-  return {}
+const hostCall: IDispatchSyscall = () => {
+  return { status: 0 }
 }
 
 test("Host", () => {
-  const kern = System.fromSyscall(hostCall)
+  System.init(hostCall)
 
-  expect(kern).toBeDefined()
+  expect(System.initialized).toBe(true)
 })

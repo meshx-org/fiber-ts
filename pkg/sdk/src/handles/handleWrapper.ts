@@ -4,7 +4,7 @@ import { Handle } from './handle'
 export class HandleWrapper {
   #handle: Handle | null
 
-  protected constructor(handle: Handle | null) {
+  constructor(handle: Handle | null) {
     this.#handle = handle
   }
 
@@ -17,7 +17,7 @@ export class HandleWrapper {
   }
 
   public close(): void {
-    this.#handle!.close()
+    this.#handle?.close()
     this.#handle = null
   }
 
@@ -27,12 +27,8 @@ export class HandleWrapper {
     return result
   }
 
-  // @override
-  // bool operator ==(Object other) =>
-  //     (other is _HandleWrapper) && handle == other.handle;
-
   public equals(other: HandleWrapper): boolean {
-    return other instanceof HandleWrapper && this.#handle == other.#handle
+    return other instanceof HandleWrapper && this.#handle === other.#handle
   }
 
   public toString(): string {
@@ -42,10 +38,10 @@ export class HandleWrapper {
 
 /// A base class for classes that wrap a pair of Handles.
 export abstract class HandleWrapperPair<T> {
-  #first: T
-  #second: T
+  #first: T | null
+  #second: T | null
 
-  protected constructor(first: T, second: T) {
+  protected constructor(first: T | null, second: T | null) {
     this.#first = first
     this.#second = second
   }
@@ -54,4 +50,3 @@ export abstract class HandleWrapperPair<T> {
     return `${this.constructor.name}(${this.#first},${this.#second})`
   }
 }
-

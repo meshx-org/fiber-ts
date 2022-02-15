@@ -1,102 +1,135 @@
 import {
   ISyscalls,
-  Status,
+  Result,
   HandleResult,
   HandlePairResult,
   WriteResult,
   ReadResult,
-  HandleTransfer,
+  HandleDisposition,
   ReadEtcResult,
-  Handle as RawHandle,
-  INVALID_HANDLE
+  Handle as RawHandle
 } from '@fiber/types'
 
-import { NotInitialized } from './errors'
+import NotInitialized from './errors'
 import { staticImpl } from './utils'
 
-/// Users of the [Result] subclasses should check the status before
-/// trying to read any data. Attempting to use a value stored in a result
-/// when the status in not OK will result in an exception.
-export interface Result {
-  status: number
-  toString(): string
-}
+export type IDispatchSyscall = (
+  namespace: string,
+  name: string,
+  args: unknown[]
+) => Result | ReadResult | ReadEtcResult | WriteResult | HandleResult | HandlePairResult
 
-export type IDispatchSyscall = (namespace: string, name: string, args: any[]) => void
-
-export function setSystem(sys: typeof System) {}
-
-// @staticImpl<ISyscalls>()
+@staticImpl<ISyscalls>()
 export class System {
-  private constructor() {}
+  public static initialized: boolean
+  
+  private static syscall: IDispatchSyscall | undefined = undefined
+  private static syscallInterface: ISyscalls | undefined = undefined
+  private static useDirectCalls: boolean
 
-  static _syscall: IDispatchSyscall | undefined
-
-  static init(syscall: IDispatchSyscall) {
-    this._syscall = syscall
+  /**
+   * Initializes a System that uses syscall dispatching.
+   * @param syscall the dispatcher function
+   */
+  public static init(syscall: IDispatchSyscall) {
+    this.syscall = syscall
+    this.initialized = true
+    this.useDirectCalls = false
   }
 
-  private static get syscall(): IDispatchSyscall {
-    if (!this._syscall) throw new NotInitialized()
-    else return this._syscall
+  /**
+   * Initializes a System that can be used directly with a kernel without any call dispatching.
+   * @param syscalls Object implementing ISyscalls interface
+   */
+  public static initDirect(syscalls: ISyscalls) {
+    this.syscallInterface = syscalls
+    this.initialized = true
+    this.useDirectCalls = true
+  }
+
+  private static checkInit() {
+    if (!this.initialized) {
+      throw new NotInitialized()
+    }
   }
 
   public static handleDuplicate(handle: RawHandle): HandleResult {
-    // this.syscall('handle', 'duplicate', [handle])
-    return { handle: INVALID_HANDLE, status: 0 }
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.handleDuplicate(handle)
+    }
+
+    return this.syscall('handle', 'duplicate', [handle]) as HandleResult
   }
 
   public static handleReplace(handle: RawHandle, replacement: RawHandle): HandleResult {
-    return { handle: INVALID_HANDLE, status: 0 }
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.handleReplace(handle, replacement)
+    }
+
+    return this.syscall('handle', 'replace', [handle, replacement]) as HandleResult
   }
 
-  public static handleClose(handle: RawHandle): void {
-    // this.syscall('handle', 'close', [handle])
+  public static handleClose(handle: RawHandle): Result {
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.handleClose(handle)
+    }
+
+    return this.syscall('handle', 'close', [handle]) as Result
   }
 
   public static channelCreate(): HandlePairResult {
-    return { status: Status.OK, first: INVALID_HANDLE, second: INVALID_HANDLE }
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.channelCreate()
+    }
+
+    return this.syscall('channel', 'create', []) as HandlePairResult
   }
 
   public static channelWrite(channel: RawHandle, data: Uint8Array, handles: RawHandle[]): WriteResult {
-    return { status: Status.OK, numBytes: 0 }
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.channelWrite(channel, data, handles)
+    }
+
+    return this.syscall('channel', 'write', [channel, data, handles]) as WriteResult
   }
 
-  public static channelWriteEtc(channel: RawHandle, data: Uint8Array, handleTransfers: HandleTransfer[]): WriteResult {
-    return { status: Status.OK, numBytes: 0 }
+  public static channelWriteEtc(channel: RawHandle, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult {
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.channelWriteEtc(channel, data, dispositions)
+    }
+
+    return this.syscall('channel', 'write_etc', [channel, data, dispositions]) as WriteResult
   }
 
   public static channelRead(channel: RawHandle): ReadResult {
-    return { status: Status.OK, numBytes: 0, bytes: new Uint8Array(0), handles: [] }
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.channelRead(channel)
+    }
+
+    return this.syscall('channel', 'read', [channel]) as ReadResult
   }
 
   public static channelReadEtc(channel: RawHandle): ReadEtcResult {
-    return { status: Status.OK, numBytes: 0, bytes: new Uint8Array(0), handleInfos: [] }
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      return this.syscallInterface?.channelReadEtc(channel)
+    }
+
+    return this.syscall('channel', 'read_etc', [channel]) as ReadEtcResult
   }
-}
-
-// @staticImpl<ISyscalls>()
-export class KernelSystem {
-  private constructor() {}
-
-  private static _kernel: ISyscalls
-
-  public static init(kernel: ISyscalls) {
-    this._kernel = kernel
-  }
-
-  private static get kernel(): ISyscalls {
-    if (!this._kernel) throw new NotInitialized()
-    else return this._kernel
-  }
-
-  public static handleDuplicate(handle: RawHandle): HandleResult {
-    return this.kernel.handleDuplicate(handle)
-  }
-
-  public static handleReplace(handle: RawHandle, replacement: RawHandle): HandleResult {
-    return { handle: INVALID_HANDLE, status: 0 }
-  }
-
-  public static handleClose(handle: RawHandle): void {}
 }

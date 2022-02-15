@@ -1,14 +1,10 @@
+import { ReadEtcResult, ReadResult, Status, WriteResult } from '@fiber/types'
 import { Handle } from './handle'
 import { HandleWrapper, HandleWrapperPair } from './handleWrapper'
 import { HandleDisposition } from './handleDisposition'
 import { System } from '../system'
-import { ReadEtcResult, ReadResult, Status, WriteResult } from '@fiber/types'
 
 export class Channel extends HandleWrapper {
-  constructor(handle: Handle | null) {
-    super(handle)
-  }
-
   public write(data: Uint8Array, handles?: Array<Handle>): WriteResult {
     if (!this.handle) {
       return { status: Status.ERR_INVALID_ARGS, numBytes: undefined }
@@ -46,21 +42,21 @@ export class Channel extends HandleWrapper {
 
 /// Typed wrapper around a linked pair of channel objects and the
 /// zx_channel_create() syscall used to create them.
-export class ChannelPair extends HandleWrapperPair<Channel | null> {
+export class ChannelPair extends HandleWrapperPair<Channel> {
   static create(): ChannelPair {
     const result = System.channelCreate()
 
-    const first = new Handle(result.first)
-    const second = new Handle(result.second)
+    const first = new Channel(new Handle(result.first))
+    const second = new Channel(new Handle(result.second))
 
-    if (result.status == Status.OK) {
-      return new ChannelPair(new Channel(first), new Channel(second))
-    } else {
+    if (result.status !== Status.OK) {
       return new ChannelPair(null, null)
     }
+    
+    return new ChannelPair(first, second)
   }
 
-  constructor(first: Channel | null, second: Channel | null) {
+  private constructor(first: Channel | null, second: Channel | null) {
     super(first, second)
   }
 }

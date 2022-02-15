@@ -3,7 +3,7 @@ import { Handle as RawHandle, INVALID_HANDLE } from '@fiber/types'
 export class Handle {
   #handle: RawHandle = INVALID_HANDLE
 
-  constructor(handle?: RawHandle) { 
+  constructor(handle?: RawHandle) {
     this.#handle = handle ?? INVALID_HANDLE
   }
 
@@ -19,14 +19,18 @@ export class Handle {
     return this.#handle !== INVALID_HANDLE
   }
 
-  public close(): void {}
+  public close(): void {
+    console.log(this.#handle)
+  }
 
   public duplicate(): Handle {
+    console.log(this.#handle)
     const h = new Handle()
     return h
   }
 
   public replace(): Handle {
+    console.log(this.#handle)
     const h = new Handle()
     return h
   }
