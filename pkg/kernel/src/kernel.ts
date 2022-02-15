@@ -16,13 +16,17 @@ interface ILogger {
   log: (...args: unknown[]) => void
 }
 
+function createKernelLogger(): ILogger {
+  return {
+    log: (...args: unknown[]) => console.log('[syscall]:', ...args)
+  }
+}
+
 export class Kernel implements ISyscalls {
   readonly #klog: ILogger
 
   constructor() {
-    this.#klog = {
-      log: (...args: unknown[]) => console.log('[syscall]:', ...args)
-    }
+    this.#klog = createKernelLogger()
   }
 
   public handleDuplicate(handle: RawHandle): HandleResult {
