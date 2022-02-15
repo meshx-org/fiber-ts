@@ -7,6 +7,7 @@
     "./pkg/*"
   ],
   "scripts": {
+    "prepare": "husky install",
     "test": "jest . --silent false",
     "compile": "tsc -b tsconfig.build.json",
     "clean": "rimraf \"pkg/**/target\" \"pkg/**/*.tsbuildinfo\"",
@@ -23,6 +24,7 @@
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "lerna": "^4.0.0",
     "prettier": "^2.5.1",
