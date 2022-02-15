@@ -7,8 +7,7 @@
     "./pkg/*"
   ],
   "lint-staged": {
-    "pkg/**/*.{js,tsx}": "eslint",
-    "pkg/**/*.{js,tsx,json}": "prettier --ignore-unknown --write"
+    "*.{js,tsx}": ["eslint", "prettier --write"]
   },
   "scripts": {
     "prepare": "husky install",
@@ -16,7 +15,7 @@
     "compile": "tsc -b tsconfig.build.json",
     "clean": "rimraf \"pkg/**/target\" \"pkg/**/*.tsbuildinfo\"",
     "lint": "eslint . --ext .ts",
-    "format": "prettier --write \"pkg/**/*.ts\" "
+    "format": "prettier --write \"*.ts\" "
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
