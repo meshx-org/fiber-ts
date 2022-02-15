@@ -22,7 +22,7 @@ export type IDispatchSyscall = (
 @staticImpl<ISyscalls>()
 export class System {
   public static initialized: boolean
-  
+
   private static syscall: IDispatchSyscall | undefined = undefined
   private static syscallInterface: ISyscalls | undefined = undefined
   private static useDirectCalls: boolean

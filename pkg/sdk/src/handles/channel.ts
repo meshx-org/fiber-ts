@@ -52,7 +52,7 @@ export class ChannelPair extends HandleWrapperPair<Channel> {
     if (result.status !== Status.OK) {
       return new ChannelPair(null, null)
     }
-    
+
     return new ChannelPair(first, second)
   }
 

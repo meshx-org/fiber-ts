@@ -1,6 +1,6 @@
-import { Kernel } from "./kernel"
+import { Kernel } from './kernel'
 
-test("Testing kernel creation", () => {
+test('Testing kernel creation', () => {
   const kern = new Kernel()
 
   expect(kern).toBeDefined()
