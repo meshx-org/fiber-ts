@@ -6,9 +6,6 @@
   "workspaces": [
     "./pkg/*"
   ],
-  "lint-staged": {
-    "*.{js,tsx}": ["eslint", "prettier --write"]
-  },
   "scripts": {
     "prepare": "husky install",
     "test": "jest . --silent false",
