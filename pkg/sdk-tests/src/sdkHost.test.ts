@@ -1,8 +1,6 @@
 import { System, IDispatchSyscall } from '@fiber/sdk'
 
-const hostCall: IDispatchSyscall = () => {
-  return { status: 0 }
-}
+const hostCall: IDispatchSyscall = async () => ({ status: 0 })
 
 test('Host', () => {
   System.init(hostCall)

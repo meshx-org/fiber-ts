@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fiber/sdk": "^0.0.0",
-    "@fiber/kernel": "^0.0.0"
+    "@fiber/kernel": "^0.0.0",
+    "quickjs-emscripten": "^0.15.0"
   }
 }

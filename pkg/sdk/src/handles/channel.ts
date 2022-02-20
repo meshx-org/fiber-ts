@@ -5,9 +5,9 @@ import { HandleDisposition } from './handleDisposition'
 import { System } from '../system'
 
 export class Channel extends HandleWrapper {
-  public write(data: Uint8Array, handles?: Array<Handle>): WriteResult {
+  public async write(data: Uint8Array, handles?: Array<Handle>): Promise<WriteResult> {
     if (!this.handle) {
-      return { status: Status.ERR_INVALID_ARGS, numBytes: undefined }
+      return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<WriteResult>
     }
 
     const rawHandles = handles.map((h) => h.raw)
@@ -15,25 +15,25 @@ export class Channel extends HandleWrapper {
     return System.channelWrite(this.handle.raw, data, rawHandles ?? [])
   }
 
-  public writeEtc(data: Uint8Array, handleDispositions?: Array<HandleDisposition>): WriteResult {
+  public async writeEtc(data: Uint8Array, handleDispositions?: Array<HandleDisposition>): Promise<WriteResult> {
     if (!this.handle) {
-      return { status: Status.ERR_INVALID_ARGS, numBytes: undefined }
+      return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<WriteResult>
     }
 
     return System.channelWriteEtc(this.handle.raw, data, handleDispositions ?? [])
   }
 
-  public read(): ReadResult {
+  public async read(): Promise<ReadResult> {
     if (!this.handle) {
-      return { status: Status.ERR_INVALID_ARGS, bytes: undefined, numBytes: undefined, handles: undefined }
+      return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<ReadResult>
     }
 
     return System.channelRead(this.handle.raw)
   }
 
-  public readEtc(): ReadEtcResult {
+  public async readEtc(): Promise<ReadEtcResult> {
     if (!this.handle) {
-      return { status: Status.ERR_INVALID_ARGS, bytes: undefined, numBytes: undefined, handleInfos: undefined }
+      return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<ReadEtcResult>
     }
 
     return System.channelReadEtc(this.handle.raw)
@@ -43,11 +43,11 @@ export class Channel extends HandleWrapper {
 /// Typed wrapper around a linked pair of channel objects and the
 /// zx_channel_create() syscall used to create them.
 export class ChannelPair extends HandleWrapperPair<Channel> {
-  static create(): ChannelPair {
-    const result = System.channelCreate()
+  static async create(): Promise<ChannelPair> {
+    const result = await System.channelCreate()
 
-    const first = new Channel(new Handle(result.first))
-    const second = new Channel(new Handle(result.second))
+    const first = new Channel(result.first)
+    const second = new Channel(result.second)
 
     if (result.status !== Status.OK) {
       return new ChannelPair(null, null)
@@ -56,7 +56,7 @@ export class ChannelPair extends HandleWrapperPair<Channel> {
     return new ChannelPair(first, second)
   }
 
-  private constructor(first: Channel | null, second: Channel | null) {
+  private constructor(first?: Channel, second?: Channel) {
     super(first, second)
   }
 }

@@ -1,6 +1,4 @@
-/* eslint no-bitwise: "off" */
-
-import { Handle } from './raw-handles'
+import { Handle } from './rawhandles'
 
 // prettier-ignore
 export enum Status {
@@ -17,23 +15,6 @@ export interface Result extends Object {
 }
 
 // prettier-ignore
-export enum HandleRights {
-  RIGHT_NONE         = 1 << 0,
-  RIGHT_READ         = 1 << 1,
-  RIGHT_WRITE        = 1 << 2,
-  RIGHT_TRANSFER     = 1 << 3,
-  RIGHT_DUPLICATE    = 1 << 4,
-  
-  RIGHT_SET_POLICY = 1 << 5,
-  RIGHT_GET_POLICY = 1 << 6,
-
-  // Process Rights
-  RIGHT_MANAGE_PROCESS = 1 << 7,
-  
-  RIGHTS_BASIC = RIGHT_TRANSFER | RIGHT_DUPLICATE,
-}
-
-// prettier-ignore
 export enum HandleType {
   HANDLE         = 0,
   CHANNEL_HANDLE = 1,
@@ -42,12 +23,12 @@ export enum HandleType {
 }
 
 export interface HandleResult extends Result {
-  handle: Handle
+  handle?: Handle
 }
 
 export interface HandlePairResult extends Result {
-  first: Handle
-  second: Handle
+  first?: Handle
+  second?: Handle
 }
 
 export interface HandleInfo extends Result {
@@ -57,15 +38,15 @@ export interface HandleInfo extends Result {
 }
 
 export interface ReadResult extends Result {
-  bytes: ArrayBuffer
-  numBytes: number
-  handles: Array<Handle>
+  bytes?: ArrayBuffer
+  numBytes?: number
+  handles?: Array<Handle>
 }
 
 export interface ReadEtcResult extends Result {
-  bytes: ArrayBuffer
-  numBytes: number
-  handleInfos: Array<HandleInfo>
+  bytes?: ArrayBuffer
+  numBytes?: number
+  handleInfos?: Array<HandleInfo>
 }
 
 export interface WriteResult extends Result {
@@ -92,4 +73,5 @@ export interface ISyscalls {
   channelReadEtc(channel: Handle): ReadEtcResult
 }
 
-export * from './raw-handles'
+export * from './rawhandles'
+export * from './rights'

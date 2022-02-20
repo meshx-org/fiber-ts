@@ -2,7 +2,10 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.eslint.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": [
     "@typescript-eslint"
@@ -16,9 +19,12 @@
     "prettier"
   ],
   "rules": {
+    "class-methods-use-this": "warn",
+    "import/extensions": "off",
     "max-classes-per-file": "off",
     "import/prefer-default-export": "off",
     "lines-between-class-members": "off",
+    // "import/extensions": "warn",
     "@typescript-eslint/lines-between-class-members": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",

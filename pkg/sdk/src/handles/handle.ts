@@ -1,37 +1,37 @@
 import { Handle as RawHandle, INVALID_HANDLE } from '@fiber/types'
+import { System } from '../system'
 
 export class Handle {
-  #handle: RawHandle = INVALID_HANDLE
+  protected $handle: RawHandle = INVALID_HANDLE
 
-  constructor(handle?: RawHandle) {
-    this.#handle = handle ?? INVALID_HANDLE
+  constructor(handle: RawHandle) {
+    this.$handle = handle
   }
 
   public static invalid(): Handle {
-    return new Handle()
+    return new Handle(INVALID_HANDLE)
   }
 
   public get raw(): RawHandle {
-    return this.#handle
+    return this.$handle
   }
 
   public get isValid(): boolean {
-    return this.#handle !== INVALID_HANDLE
+    return this.$handle !== INVALID_HANDLE
   }
 
-  public close(): void {
-    console.log(this.#handle)
+  public async close(): Promise<void> {
+    const { status } = await System.handleClose(this.$handle)
   }
 
-  public duplicate(): Handle {
-    console.log(this.#handle)
-    const h = new Handle()
-    return h
+  public async duplicate(): Promise<Handle> {
+    const { status, handle: raw } = await System.handleDuplicate(this.$handle)
+
+    return new Handle(raw)
   }
 
-  public replace(): Handle {
-    console.log(this.#handle)
-    const h = new Handle()
-    return h
+  // TODO: Implement
+  public async replace(): Promise<Handle> {
+    throw new Error('Not implemented')
   }
 }

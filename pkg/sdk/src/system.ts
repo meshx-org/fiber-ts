@@ -11,15 +11,14 @@ import {
 } from '@fiber/types'
 
 import NotInitialized from './errors'
-import { staticImpl } from './utils'
 
-export type IDispatchSyscall = (
+export type IDispatchSyscall<T extends Result = Result> = (
   namespace: string,
   name: string,
   args: unknown[]
-) => Result | ReadResult | ReadEtcResult | WriteResult | HandleResult | HandlePairResult
+) => Promise<T>
 
-@staticImpl<ISyscalls>()
+// @staticImpl<ISyscalls>()
 export class System {
   public static initialized: boolean
 
@@ -53,83 +52,91 @@ export class System {
     }
   }
 
-  public static handleDuplicate(handle: RawHandle): HandleResult {
+  public static async handleDuplicate(handle: RawHandle) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.handleDuplicate(handle)
+      const result = this.syscallInterface?.handleDuplicate(handle)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('handle', 'duplicate', [handle]) as HandleResult
+    return this.syscall('handle', 'duplicate', [handle]) as Promise<HandleResult>
   }
 
-  public static handleReplace(handle: RawHandle, replacement: RawHandle): HandleResult {
+  public static async handleReplace(handle: RawHandle, replacement: RawHandle) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.handleReplace(handle, replacement)
+      const result = this.syscallInterface?.handleReplace(handle, replacement)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('handle', 'replace', [handle, replacement]) as HandleResult
+    return this.syscall('handle', 'replace', [handle, replacement]) as Promise<HandleResult>
   }
 
-  public static handleClose(handle: RawHandle): Result {
+  public static async handleClose(handle: RawHandle): Promise<Result> {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.handleClose(handle)
+      const result = this.syscallInterface?.handleClose(handle)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('handle', 'close', [handle]) as Result
+    return this.syscall('handle', 'close', [handle]) as Promise<Result>
   }
 
-  public static channelCreate(): HandlePairResult {
+  public static async channelCreate() {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.channelCreate()
+      const result = this.syscallInterface?.channelCreate()
+      return Promise.resolve(result)
     }
 
-    return this.syscall('channel', 'create', []) as HandlePairResult
+    return this.syscall('channel', 'create', []) as Promise<HandlePairResult>
   }
 
-  public static channelWrite(channel: RawHandle, data: Uint8Array, handles: RawHandle[]): WriteResult {
+  public static async channelWrite(channel: RawHandle, data: Uint8Array, handles: RawHandle[]) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.channelWrite(channel, data, handles)
+      const result = this.syscallInterface?.channelWrite(channel, data, handles)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('channel', 'write', [channel, data, handles]) as WriteResult
+    return this.syscall('channel', 'write', [channel, data, handles]) as Promise<WriteResult>
   }
 
-  public static channelWriteEtc(channel: RawHandle, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult {
+  public static async channelWriteEtc(channel: RawHandle, data: Uint8Array, dispositions: HandleDisposition[]) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.channelWriteEtc(channel, data, dispositions)
+      const result = this.syscallInterface?.channelWriteEtc(channel, data, dispositions)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('channel', 'write_etc', [channel, data, dispositions]) as WriteResult
+    return this.syscall('channel', 'write_etc', [channel, data, dispositions]) as Promise<WriteResult>
   }
 
-  public static channelRead(channel: RawHandle): ReadResult {
+  public static async channelRead(channel: RawHandle) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.channelRead(channel)
+      const result = this.syscallInterface?.channelRead(channel)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('channel', 'read', [channel]) as ReadResult
+    return this.syscall('channel', 'read', [channel]) as Promise<ReadResult>
   }
 
-  public static channelReadEtc(channel: RawHandle): ReadEtcResult {
+  public static async channelReadEtc(channel: RawHandle) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      return this.syscallInterface?.channelReadEtc(channel)
+      const result = this.syscallInterface?.channelReadEtc(channel)
+      return Promise.resolve(result)
     }
 
-    return this.syscall('channel', 'read_etc', [channel]) as ReadEtcResult
+    return this.syscall('channel', 'read_etc', [channel]) as Promise<ReadEtcResult>
   }
 }
