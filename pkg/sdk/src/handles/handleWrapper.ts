@@ -19,11 +19,11 @@ export abstract class HandleWrapper extends Handle {
 
 /// A base class for classes that wrap a pair of TypedHandles.
 export abstract class HandleWrapperPair<T> {
-  #first: T | null
-  #second: T | null
+  public first: T | null
+  public second: T | null
 
   protected constructor(first: T | null, second: T | null) {
-    this.#first = first
-    this.#second = second
+    this.first = first
+    this.second = second
   }
 }

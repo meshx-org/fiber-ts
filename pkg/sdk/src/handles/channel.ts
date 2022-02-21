@@ -1,8 +1,8 @@
 import { ReadEtcResult, ReadResult, Status, WriteResult } from '@fiber/types'
-import { Handle } from './handle'
 import { HandleWrapper, HandleWrapperPair } from './handleWrapper'
 import { HandleDisposition } from './handleDisposition'
 import { System } from '../system'
+import { Process, Handle } from './index'
 
 export class Channel extends HandleWrapper {
   public async write(data: Uint8Array, handles?: Array<Handle>): Promise<WriteResult> {
@@ -43,8 +43,8 @@ export class Channel extends HandleWrapper {
 /// Typed wrapper around a linked pair of channel objects and the
 /// zx_channel_create() syscall used to create them.
 export class ChannelPair extends HandleWrapperPair<Channel> {
-  static async create(): Promise<ChannelPair> {
-    const result = await System.channelCreate()
+  static async create(parent: Process): Promise<ChannelPair> {
+    const result = await System.channelCreate(parent.raw)
 
     const first = new Channel(result.first)
     const second = new Channel(result.second)

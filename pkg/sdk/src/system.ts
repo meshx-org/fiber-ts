@@ -7,7 +7,11 @@ import {
   ReadResult,
   HandleDisposition,
   ReadEtcResult,
-  Handle as RawHandle
+  Handle,
+  Process,
+  Channel,
+  Realm,
+  Status
 } from '@fiber/types'
 
 import NotInitialized from './errors'
@@ -18,7 +22,7 @@ export type IDispatchSyscall<T extends Result = Result> = (
   args: unknown[]
 ) => Promise<T>
 
-// @staticImpl<ISyscalls>()
+/// This class is used to dispatch syscalls to the underlying system.
 export class System {
   public static initialized: boolean
 
@@ -52,7 +56,7 @@ export class System {
     }
   }
 
-  public static async handleDuplicate(handle: RawHandle) {
+  public static async handleDuplicate(handle: Handle) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
@@ -63,7 +67,7 @@ export class System {
     return this.syscall('handle', 'duplicate', [handle]) as Promise<HandleResult>
   }
 
-  public static async handleReplace(handle: RawHandle, replacement: RawHandle) {
+  public static async handleReplace(handle: Handle, replacement: Handle) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
@@ -74,7 +78,7 @@ export class System {
     return this.syscall('handle', 'replace', [handle, replacement]) as Promise<HandleResult>
   }
 
-  public static async handleClose(handle: RawHandle): Promise<Result> {
+  public static async handleClose(handle: Handle): Promise<Result> {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
@@ -85,18 +89,42 @@ export class System {
     return this.syscall('handle', 'close', [handle]) as Promise<Result>
   }
 
-  public static async channelCreate() {
+  // TODO: replace program handle with Memory type
+  public static async processCreate(parent: Realm, name: string, program: Handle): Promise<HandleResult> {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
-      const result = this.syscallInterface?.channelCreate()
+      const result = this.syscallInterface?.processCreate(parent, name, program)
+      return Promise.resolve(result)
+    }
+
+    return this.syscall('process', 'create', [parent, name, program])
+  }
+
+  public static async processStart(process: Process, bootstrap: Channel): Promise<Result> {
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      const result = this.syscallInterface?.processStart(process, bootstrap)
+      return Promise.resolve(result)
+    }
+
+    return this.syscall('process', 'start', [process, bootstrap])
+  }
+
+  public static async channelCreate(process: Process) {
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      // TODO: fix hardcoded handle
+      const result = this.syscallInterface?.channelCreate(process)
       return Promise.resolve(result)
     }
 
     return this.syscall('channel', 'create', []) as Promise<HandlePairResult>
   }
 
-  public static async channelWrite(channel: RawHandle, data: Uint8Array, handles: RawHandle[]) {
+  public static async channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
@@ -107,7 +135,7 @@ export class System {
     return this.syscall('channel', 'write', [channel, data, handles]) as Promise<WriteResult>
   }
 
-  public static async channelWriteEtc(channel: RawHandle, data: Uint8Array, dispositions: HandleDisposition[]) {
+  public static async channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
@@ -118,7 +146,7 @@ export class System {
     return this.syscall('channel', 'write_etc', [channel, data, dispositions]) as Promise<WriteResult>
   }
 
-  public static async channelRead(channel: RawHandle) {
+  public static async channelRead(channel: Channel) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {
@@ -129,7 +157,7 @@ export class System {
     return this.syscall('channel', 'read', [channel]) as Promise<ReadResult>
   }
 
-  public static async channelReadEtc(channel: RawHandle) {
+  public static async channelReadEtc(channel: Channel) {
     this.checkInit()
 
     if (this.useDirectCalls === true) {

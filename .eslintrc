@@ -19,13 +19,25 @@
     "prettier"
   ],
   "rules": {
-    "class-methods-use-this": "warn",
     "import/extensions": "off",
-    "max-classes-per-file": "off",
     "import/prefer-default-export": "off",
+    "class-methods-use-this": "warn",
+    "import/no-cycle": "warn",
+    "max-classes-per-file": "off",
     "lines-between-class-members": "off",
-    // "import/extensions": "warn",
+    /*"@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": ["PascalCase"],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
+    ],*/
     "@typescript-eslint/lines-between-class-members": "off",
+    "no-restricted-globals": ["off", "self"],
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {

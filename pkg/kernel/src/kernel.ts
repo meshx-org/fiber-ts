@@ -38,7 +38,7 @@ interface KernelHandle {
   rights: HandleRights
 }
 
-export class Kernel implements ISyscalls {
+export default class Kernel implements ISyscalls {
   readonly #klog: ILogger
 
   private kobjects: Record<Koid, KernelObject> = {}
@@ -100,7 +100,7 @@ export class Kernel implements ISyscalls {
   // #endregion
 
   // #region process operations
-  public processCreate(parentRealm: RawRealm, programVmo: RawHandle): HandleResult {
+  public processCreate(parentRealm: RawRealm, name: string, programVmo: RawHandle): HandleResult {
     this.#klog.log('processCreate', parentRealm, programVmo)
 
     let handleId: number

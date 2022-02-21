@@ -1,1 +1,3 @@
-export * from './kernel'
+import Kernel from './kernel'
+
+export { Kernel }

@@ -1,13 +1,16 @@
-import { Handle } from './rawhandles'
+import { Handle, Process, Realm, Channel } from './rawhandles'
 
 // prettier-ignore
 export enum Status {
   OK                = 0,
-  ERR_BAD_STATE     = 1,
-  ERR_INVALID_ARGS  = 2,
+  ERR_INTERNAL      = 1,
+  ERR_NOT_SUPPORTED = 2,
   ERR_NO_MEMORY     = 3,
-  ERR_NOT_SUPPORTED = 4,
-  ERR_INTERNAL      = 5
+  ERR_WRONG_TYPE    = 4,
+  ERR_BAD_STATE     = 5,
+  ERR_INVALID_ARGS  = 6,
+  ERR_BAD_HANDLE    = 7,
+  ERR_BAD_SYSCALL   = 8
 }
 
 export interface Result extends Object {
@@ -63,14 +66,27 @@ export interface HandleDisposition {
 }
 
 export interface ISyscalls {
+  // Handle operations.
   handleDuplicate: (handle: Handle) => HandleResult
   handleReplace: (handle: Handle, replacement: Handle) => HandleResult
   handleClose: (handle: Handle) => Result
-  channelCreate(): HandlePairResult
-  channelWrite(channel: Handle, data: Uint8Array, handles: Handle[]): WriteResult
-  channelWriteEtc(channel: Handle, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult
-  channelRead(channel: Handle): ReadResult
-  channelReadEtc(channel: Handle): ReadEtcResult
+
+  // Channel operations.
+  channelCreate(process: Process): HandlePairResult
+  channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]): WriteResult
+  channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult
+  channelRead(channel: Channel): ReadResult
+  channelReadEtc(channel: Channel): ReadEtcResult
+
+  // Process operations.
+  processCreate: (parent: Realm, name: string, program: Handle) => HandleResult
+  processStart: (process: Process, bootstrap: Handle) => Result
+
+  // Memory operations.
+  // memoryCreate: (size: number) => HandleResult
+  // memoryWrite: (handle: Handle, offset: number, data: Uint8Array) => WriteResult
+  // memoryRead: (handle: Handle, offset: number, length: number) => ReadResult
+  // memoryCreateChild: (parent: Handle, offset: number, size: number) => HandleResult
 }
 
 export * from './rawhandles'

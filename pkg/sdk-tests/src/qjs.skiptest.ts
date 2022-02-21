@@ -12,7 +12,7 @@ test('WebAssembly works inside jest', () => {
   expect(global.WebAssembly).toHaveProperty('compile')
 })
 
-test('quickjs', async () => {
+test.skip('quickjs', async () => {
   const world = vm.newString('world')
   vm.setProp(vm.global, 'NAME', world)
   world.dispose()
