@@ -1,9 +1,8 @@
-import { Handle } from '@fiber/types'
+import { Handle, HandleType } from '@fiber/types'
 
-export class HandleDisposition {
-  constructor(public operation: number, public handle: Handle, public type: number, public rights: number) {}
-
-  public toString() {
-    return `HandleDisposition(operation=${this.operation}, handle=${this.handle}, type=${this.type}, rights=${this.rights})`
-  }
+export interface HandleDisposition {
+  operation: number
+  handle: Handle
+  type: HandleType
+  rights: number
 }

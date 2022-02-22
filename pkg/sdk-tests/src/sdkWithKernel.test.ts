@@ -1,4 +1,4 @@
-import { ChannelPair, System } from '@fiber/sdk'
+import { System } from '@fiber/sdk'
 import { Kernel } from '@fiber/kernel'
 
 describe('System', () => {
@@ -8,10 +8,6 @@ describe('System', () => {
   })
 
   test('System should be initilized', () => {
-    expect(System.initialized).toBeTruthy()
-  })
-
-  test('ChannelPair can be created', () => {
-    const pair = ChannelPair.create()
+    expect(System.initialized).toBe(true)
   })
 })

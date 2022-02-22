@@ -78,6 +78,9 @@ export interface ISyscalls {
   channelRead(channel: Channel): ReadResult
   channelReadEtc(channel: Channel): ReadEtcResult
 
+  // Realm operations.
+  realmCreate: (parent: Realm) => HandleResult
+
   // Process operations.
   processCreate: (parent: Realm, name: string, program: Handle) => HandleResult
   processStart: (process: Process, bootstrap: Handle) => Result

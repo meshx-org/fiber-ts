@@ -1,20 +1,25 @@
 import { INVALID_HANDLE } from '@fiber/types'
+import { Realm } from '.'
 import { System } from '../system'
 import { ChannelPair } from './channel'
 import { Process } from './process'
 import { SyscallRecorder } from './__test__/syscallRecorder'
 
+const ROOT_REALM_RAW = 1
+
 describe('SDK Channel Handle', () => {
   let recorder: SyscallRecorder
   let parentProcess: Process
+  let rootRealm: Realm
 
   beforeAll(() => {
+    rootRealm = new Realm(ROOT_REALM_RAW)
     recorder = new SyscallRecorder()
     System.init(recorder.dispatch)
   })
 
   beforeEach(async () => {
-    parentProcess = await Process.create(INVALID_HANDLE, 'parent', INVALID_HANDLE)
+    parentProcess = await Process.create(rootRealm, 'parent', INVALID_HANDLE)
     recorder.reset()
   })
 

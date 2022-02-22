@@ -2,15 +2,9 @@ import { Handle } from './handle'
 
 /// A base class for TypedHandles.
 export abstract class HandleWrapper extends Handle {
-  public get handle(): Handle | null {
+  public get handle(): Handle {
     return new Handle(this.$handle)
   }
-
-  /* public passHandle(): Handle | null {
-    const result: Handle | null = this.#handle
-    this.#handle = null
-    return result
-  } */
 
   public equals(other: HandleWrapper): boolean {
     return this.$handle === other.$handle

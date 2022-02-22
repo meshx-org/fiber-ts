@@ -12,7 +12,7 @@ export class Channel extends HandleWrapper {
 
     const rawHandles = handles.map((h) => h.raw)
 
-    return System.channelWrite(this.handle.raw, data, rawHandles ?? [])
+    return System.channelWrite(this.raw, data, rawHandles ?? [])
   }
 
   public async writeEtc(data: Uint8Array, handleDispositions?: Array<HandleDisposition>): Promise<WriteResult> {
@@ -20,7 +20,7 @@ export class Channel extends HandleWrapper {
       return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<WriteResult>
     }
 
-    return System.channelWriteEtc(this.handle.raw, data, handleDispositions ?? [])
+    return System.channelWriteEtc(this.raw, data, handleDispositions ?? [])
   }
 
   public async read(): Promise<ReadResult> {
@@ -28,7 +28,7 @@ export class Channel extends HandleWrapper {
       return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<ReadResult>
     }
 
-    return System.channelRead(this.handle.raw)
+    return System.channelRead(this.raw)
   }
 
   public async readEtc(): Promise<ReadEtcResult> {
@@ -36,7 +36,7 @@ export class Channel extends HandleWrapper {
       return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<ReadEtcResult>
     }
 
-    return System.channelReadEtc(this.handle.raw)
+    return System.channelReadEtc(this.raw)
   }
 }
 

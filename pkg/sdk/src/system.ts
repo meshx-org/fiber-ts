@@ -10,8 +10,7 @@ import {
   Handle,
   Process,
   Channel,
-  Realm,
-  Status
+  Realm
 } from '@fiber/types'
 
 import NotInitialized from './errors'
@@ -22,9 +21,9 @@ export type IDispatchSyscall<T extends Result = Result> = (
   args: unknown[]
 ) => Promise<T>
 
-/// This class is used to dispatch syscalls to the underlying system.
+/// This class is used to dispatch syscalls directly or indirectly.
 export class System {
-  public static initialized: boolean
+  public static initialized = false
 
   private static syscall: IDispatchSyscall | undefined = undefined
   private static syscallInterface: ISyscalls | undefined = undefined
@@ -51,9 +50,7 @@ export class System {
   }
 
   private static checkInit() {
-    if (!this.initialized) {
-      throw new NotInitialized()
-    }
+    if (this.initialized === false) throw new NotInitialized()
   }
 
   public static async handleDuplicate(handle: Handle) {
@@ -89,6 +86,17 @@ export class System {
     return this.syscall('handle', 'close', [handle]) as Promise<Result>
   }
 
+  public static async realmCreate(parent: Realm): Promise<HandleResult> {
+    this.checkInit()
+
+    if (this.useDirectCalls === true) {
+      const result = this.syscallInterface?.realmCreate(parent)
+      return Promise.resolve(result)
+    }
+
+    return this.syscall('realm', 'create', [parent])
+  }
+
   // TODO: replace program handle with Memory type
   public static async processCreate(parent: Realm, name: string, program: Handle): Promise<HandleResult> {
     this.checkInit()
@@ -121,7 +129,7 @@ export class System {
       return Promise.resolve(result)
     }
 
-    return this.syscall('channel', 'create', []) as Promise<HandlePairResult>
+    return this.syscall('channel', 'create', [process]) as Promise<HandlePairResult>
   }
 
   public static async channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]) {
