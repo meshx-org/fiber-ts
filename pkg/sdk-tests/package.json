@@ -1,5 +1,5 @@
 {
-  "name": "@meshx/sdk-tests",
+  "name": "@meshx-org/sdk-tests",
   "version": "0.0.2-alpha.0",
   "private": true,
   "main": "target/index.js",
@@ -8,8 +8,8 @@
     "compile": ""
   },
   "dependencies": {
-    "@meshx/fiber-kernel": "^0.0.2-alpha.0",
-    "@meshx/fiber-sdk": "^0.0.2-alpha.0",
+    "@meshx-org/fiber-kernel": "^0.0.2-alpha.0",
+    "@meshx-org/fiber-sdk": "^0.0.2-alpha.0",
     "quickjs-emscripten": "^0.15.0"
   }
 }

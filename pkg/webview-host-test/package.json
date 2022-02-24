@@ -1,5 +1,5 @@
 {
-  "name": "@meshx/webview-host-test",
+  "name": "@meshx-org/webview-host-test",
   "version": "0.0.1",
   "main": "index.js",
   "private": true,

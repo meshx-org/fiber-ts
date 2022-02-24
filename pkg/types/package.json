@@ -1,5 +1,5 @@
 {
-  "name": "@meshx/fiber-types",
+  "name": "@meshx-org/fiber-types",
   "version": "0.0.2-alpha.0",
   "main": "target/index.js",
   "types": "target/index.d.ts",
@@ -8,7 +8,7 @@
   },
   "repository": "https://github.com/meshx-org/fiber-ts",
   "publishConfig": {
-    "@meshx:registry": "https://npm.pkg.github.com/meshx-org"
+    "registry": "https://npm.pkg.github.com/@meshx-org"
   },
-  "gitHead": "7b79b5953ac275ae3b15b8e22bbac1037a3426bf"
+  "gitHead": "d7d973a7fd0cbe6610cb3d0a98982ec72bdb8d18"
 }
