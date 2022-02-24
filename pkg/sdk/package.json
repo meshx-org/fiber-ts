@@ -1,6 +1,6 @@
 {
   "name": "@meshx/fiber-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "target/index.js",
   "types": "target/index.d.ts",
   "author": "Fiber Contributors",
@@ -13,7 +13,7 @@
     "@meshx:registry": "https://npm.pkg.github.com/meshx-org"
   },
   "dependencies": {
-    "@meshx/fiber-types": "^0.0.1"
+    "@meshx/fiber-types": "^0.0.2-alpha.0"
   },
   "gitHead": "7b79b5953ac275ae3b15b8e22bbac1037a3426bf"
 }
