@@ -14,5 +14,6 @@
   },
   "dependencies": {
     "@meshx/fiber-types": "^0.0.1"
-  }
+  },
+  "gitHead": "7b79b5953ac275ae3b15b8e22bbac1037a3426bf"
 }
