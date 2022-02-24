@@ -1,5 +1,5 @@
 {
-  "name": "@fiber/kernel",
+  "name": "@meshx/fiber-kernel",
   "version": "0.0.0",
   "main": "target/index.js",
   "types": "target/index.d.ts",
@@ -7,6 +7,6 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "@fiber/types": "^0.0.0"
+    "@meshx/fiber-types": "^0.0.0"
   }
 }

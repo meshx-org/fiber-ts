@@ -1,8 +1,8 @@
 {
-  "name": "webview_host",
-  "version": "1.0.0",
+  "name": "@meshx/webview-host-test",
+  "version": "0.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "private": true,
   "dependencies": {
     "parcel": "^2.3.2",
     "quickjs-emscripten": "^0.15.0",

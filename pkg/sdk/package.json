@@ -1,12 +1,18 @@
 {
-  "name": "@fiber/sdk",
+  "name": "@meshx/fiber-sdk",
   "version": "0.0.0",
   "main": "target/index.js",
   "types": "target/index.d.ts",
+  "author": "Fiber Contributors",
+  "license": "apache-2.0",
   "scripts": {
     "compile": "tsc"
   },
+  "repository": "https://github.com/meshx-org/fiber-ts",
+  "publishConfig": {
+    "@meshx:registry": "https://npm.pkg.github.com/meshx-org"
+  },
   "dependencies": {
-    "@fiber/types": "^0.0.0"
+    "@meshx/fiber-types": "^0.0.0"
   }
 }

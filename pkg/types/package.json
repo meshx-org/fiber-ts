@@ -1,10 +1,9 @@
 {
-  "name": "@fiber/types",
+  "name": "@meshx/fiber-types",
   "version": "0.0.0",
   "main": "target/index.js",
   "types": "target/index.d.ts",
   "scripts": {
     "compile": "tsc"
   }
-  
 }

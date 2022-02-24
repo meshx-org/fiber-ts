@@ -6,6 +6,7 @@
   "workspaces": [
     "./pkg/*"
   ],
+
   "scripts": {
     "prepare": "husky install",
     "test": "jest . --silent false",
