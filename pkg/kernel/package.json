@@ -12,6 +12,5 @@
   },
   "dependencies": {
     "@meshx-org/fiber-types": "^0.0.2-alpha.5"
-  },
-  "gitHead": "68d42cf47e63afc392a0a5779944e77c201549f7"
+  }
 }

@@ -1,6 +1,6 @@
 {
   "name": "fiber-ts",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "homepage": "https://meshx.co/open-source/fiber",
   "workspaces": [
