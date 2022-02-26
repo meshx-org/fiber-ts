@@ -1,12 +1,13 @@
 {
   "name": "@meshx-org/fiber-sdk",
   "version": "0.0.2-alpha.6",
-  "main": "src/index.ts",
+  
   "description": "SDK for Fiber capability runtime",
-  "types": "target/index.d.ts",
   "author": "Roland Szarka-Kovács <Roland.Szarka-Kovacs@meshx.co>",
   "repository": "https://github.com/meshx-org/fiber-ts",
   "license": "apache-2.0",
+  "main": "target/index.js",
+  "types": "target/index.d.ts",
   "files": [
     "target/**/*"
   ],
@@ -20,5 +21,6 @@
   },
   "dependencies": {
     "@meshx-org/fiber-types": "^0.0.2-alpha.6"
-  }
+  },
+  "gitHead": "cd48c15418173603beac71f57d9f9196e4351534"
 }

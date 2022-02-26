@@ -1,4 +1,4 @@
-import { Handle as RawHandle, INVALID_HANDLE } from '@fiber/types'
+import { Handle as RawHandle, INVALID_HANDLE } from '@meshx-org/fiber-types'
 import { System } from '../system'
 
 export class Handle {

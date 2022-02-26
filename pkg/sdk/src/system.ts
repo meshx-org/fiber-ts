@@ -11,7 +11,7 @@ import {
   Process,
   Channel,
   Realm
-} from '@fiber/types'
+} from '@meshx-org/fiber-types'
 
 import NotInitialized from './errors'
 

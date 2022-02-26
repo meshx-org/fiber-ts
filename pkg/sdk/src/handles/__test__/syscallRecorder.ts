@@ -1,4 +1,4 @@
-import { Status } from '@fiber/types'
+import { Status } from '@meshx-org/fiber-types'
 import { IDispatchSyscall } from '../../system'
 
 export interface ISavedSyscall {

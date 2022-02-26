@@ -1,13 +1,12 @@
 {
+  "files": [],
   "references": [
+    
     {
-      "path": "pkg/types"
+      "path": "pkg/kernel"
     },
     {
       "path": "pkg/sdk"
-    },
-    {
-      "path": "pkg/kernel"
     },
   ]
 }

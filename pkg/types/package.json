@@ -9,5 +9,6 @@
   "repository": "https://github.com/meshx-org/fiber-ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
-  }
+  },
+  "gitHead": "cd48c15418173603beac71f57d9f9196e4351534"
 }

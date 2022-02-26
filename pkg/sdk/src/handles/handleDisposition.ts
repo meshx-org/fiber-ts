@@ -1,4 +1,4 @@
-import { Handle, HandleType } from '@fiber/types'
+import { Handle, HandleType } from '@meshx-org/fiber-types'
 
 export interface HandleDisposition {
   operation: number

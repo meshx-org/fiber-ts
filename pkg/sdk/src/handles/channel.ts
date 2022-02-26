@@ -1,4 +1,4 @@
-import { ReadEtcResult, ReadResult, Status, WriteResult } from '@fiber/types'
+import { ReadEtcResult, ReadResult, Status, WriteResult } from '@meshx-org/fiber-types'
 import { HandleWrapper, HandleWrapperPair } from './handleWrapper'
 import { HandleDisposition } from './handleDisposition'
 import { System } from '../system'

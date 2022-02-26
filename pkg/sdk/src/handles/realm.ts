@@ -1,4 +1,4 @@
-import { INVALID_HANDLE, Status } from '@fiber/types'
+import { INVALID_HANDLE, Status } from '@meshx-org/fiber-types'
 import { System } from '../system'
 import { HandleWrapper } from './handleWrapper'
 

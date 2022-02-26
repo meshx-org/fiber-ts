@@ -17,7 +17,7 @@ import {
   HandleDisposition,
   Status,
   HandleRights
-} from '@fiber/types'
+} from '@meshx-org/fiber-types'
 
 import { ILogger, createKernelLogger } from './logger'
 import { IdGen } from './idgen'
