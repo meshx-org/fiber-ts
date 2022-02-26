@@ -6,9 +6,8 @@
   "workspaces": [
     "./pkg/*"
   ],
-
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky install && npm run compile",
     "test": "jest . --silent false",
     "compile": "tsc -b tsconfig.build.json",
     "clean": "rimraf \"pkg/**/target\" \"pkg/**/*.tsbuildinfo\"",
