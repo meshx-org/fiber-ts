@@ -1,6 +1,6 @@
 {
   "name": "@meshx-org/fiber-kernel",
-  "version": "0.0.2-alpha.3",
+  "version": "0.0.2-alpha.4",
   "main": "target/index.js",
   "types": "target/index.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
-    "@meshx-org/fiber-types": "^0.0.2-alpha.3"
+    "@meshx-org/fiber-types": "^0.0.2-alpha.4"
   },
-  "gitHead": "04f5121bfc202917bff7f932059421824caf3fd2"
+  "gitHead": "e939e10e497826fbe900c0cb6281a50c9d0242a5"
 }
