@@ -1,6 +1,6 @@
 {
   "name": "@meshx-org/fiber-sdk",
-  "version": "0.0.2-alpha.5",
+  "version": "0.0.2-alpha.6",
   "main": "src/index.ts",
   "description": "SDK for Fiber capability runtime",
   "types": "target/index.d.ts",
@@ -19,6 +19,6 @@
     "compile": "tsc"
   },
   "dependencies": {
-    "@meshx-org/fiber-types": "^0.0.2-alpha.5"
+    "@meshx-org/fiber-types": "^0.0.2-alpha.6"
   }
 }
