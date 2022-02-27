@@ -7,7 +7,7 @@
   "version": "0.0.2-alpha.9",
   "command": {
     "publish": {
-      "registry": "https://npm.pkg.github.com/meshx-org"
+      "registry": "https://npm.pkg.github.com"
     }
   }
 }
