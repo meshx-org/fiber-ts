@@ -1,8 +1,8 @@
-import { System, IDispatchSyscall } from '@fiber/sdk'
+import { System, IDispatchSyscall } from '@meshx-org/fiber-sdk'
 
 const hostCall: IDispatchSyscall = async () => ({ status: 0 })
 
-describe('System', () => {
+describe('Indirect Syscalls', () => {
     test('Host', () => {
         System.init(hostCall)
 

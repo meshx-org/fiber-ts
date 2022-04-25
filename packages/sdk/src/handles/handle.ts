@@ -27,7 +27,7 @@ export class Handle {
     public async duplicate(): Promise<Handle> {
         const { status, handle: raw } = await System.handleDuplicate(this.$handle)
 
-        return new Handle(raw)
+        return new Handle(raw!)
     }
 
     // TODO: Implement

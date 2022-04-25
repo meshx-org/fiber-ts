@@ -12,7 +12,7 @@ export class Process extends HandleWrapper {
             return new Process(INVALID_HANDLE)
         }
 
-        return new Process(handle)
+        return new Process(handle!)
     }
 
     public async start(bootstrap: Channel): Promise<void> {

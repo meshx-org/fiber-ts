@@ -1,9 +1,9 @@
-import { System } from '@fiber/sdk'
-import { Kernel } from '@fiber/kernel'
+import { System } from '@meshx-org/fiber-sdk'
+import { Kernel } from '@meshx-org/fiber-kernel'
 
-describe('System', () => {
+describe('Direct Syscalls', () => {
     beforeEach(() => {
-        const kernel = new Kernel()
+        const kernel = new Kernel({ onProcessCreate: () => {}, onProcessKill: () => {} })
         System.initDirect(kernel)
     })
 

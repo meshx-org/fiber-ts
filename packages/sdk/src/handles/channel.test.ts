@@ -1,4 +1,4 @@
-import { INVALID_HANDLE } from '@fiber/types'
+import { INVALID_HANDLE } from '@meshx-org/fiber-types'
 import { Realm } from '.'
 import { System } from '../system'
 import { ChannelPair } from './channel'

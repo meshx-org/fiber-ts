@@ -12,7 +12,9 @@
         "compile": "tsc -b tsconfig.build.json",
         "clean": "rimraf \"packages/**/target\" \"packages/**/*.tsbuildinfo\"",
         "lint": "eslint **/*.{ts,tsx}",
-        "format": "prettier --write **/*.{ts,tsx,json,yaml} "
+        "format": "prettier --write **/*.{ts,tsx,json,yaml}",
+        "test:sdk": "yarn workspace @meshx-org/sdk-tests test",
+        "start:webview-host": "yarn workspace @meshx-org/webview-host-test start"
     },
     "devDependencies": {
         "@types/jest": "^27.4.0",

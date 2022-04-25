@@ -1,19 +1,19 @@
-import { HandleType, INVALID_HANDLE, ISyscalls, Status } from '@fiber/types'
+import { HandleType, INVALID_HANDLE, ISyscalls, Status } from '@meshx-org/fiber-types'
 import NotInitialized from './errors'
 import { IDispatchSyscall } from './system'
 
 const kernelMock: ISyscalls = {
-    handleDuplicate: jest.fn((_handle) => ({ status: Status.OK, handle: INVALID_HANDLE })),
-    handleReplace: jest.fn((_handle, _replacement) => ({ status: Status.OK, handle: INVALID_HANDLE })),
-    handleClose: jest.fn((_handle) => ({ status: Status.OK })),
-    channelCreate: jest.fn((_process) => ({ status: Status.OK, first: INVALID_HANDLE, second: INVALID_HANDLE })),
-    channelWrite: jest.fn((_channel, _data, _handles) => ({ status: Status.OK, numBytes: 0 })),
-    channelWriteEtc: jest.fn((_channel, _data, _dispositions) => ({ status: Status.OK, numBytes: 0 })),
-    channelRead: jest.fn((_channel) => ({ status: Status.OK })),
-    channelReadEtc: jest.fn((_channel) => ({ status: Status.OK })),
-    realmCreate: jest.fn((_parent) => ({ status: Status.OK, handle: INVALID_HANDLE })),
-    processCreate: jest.fn((_parent, _name, _program) => ({ status: Status.OK, handle: INVALID_HANDLE })),
-    processStart: jest.fn((_process, _bootstrap) => ({ status: Status.OK }))
+    handle_duplicate: jest.fn((_handle) => ({ status: Status.OK, handle: INVALID_HANDLE })),
+    handle_replace: jest.fn((_handle, _replacement) => ({ status: Status.OK, handle: INVALID_HANDLE })),
+    handle_close: jest.fn((_handle) => ({ status: Status.OK })),
+    channel_create: jest.fn((_process) => ({ status: Status.OK, first: INVALID_HANDLE, second: INVALID_HANDLE })),
+    channel_write: jest.fn((_channel, _data, _handles) => ({ status: Status.OK, numBytes: 0 })),
+    channel_write_etc: jest.fn((_channel, _data, _dispositions) => ({ status: Status.OK, numBytes: 0 })),
+    channel_read: jest.fn((_channel) => ({ status: Status.OK })),
+    channel_read_etc: jest.fn((_channel) => ({ status: Status.OK })),
+    realm_create: jest.fn((_parent) => ({ status: Status.OK, handle: INVALID_HANDLE })),
+    process_create: jest.fn((_parent, _name, _program) => ({ status: Status.OK, handle: INVALID_HANDLE })),
+    process_start: jest.fn((_process, _bootstrap) => ({ status: Status.OK }))
 }
 
 const syscall = jest.fn()
@@ -61,7 +61,7 @@ describe('System', () => {
         const { System } = await import('./system')
 
         expect(System.initialized).toBe(false)
-        expect(() => System.channelCreate(1)).rejects.toThrow('System not initialized')
+        expect(() => System.channelCreate(1)).toThrow('System not initialized')
     })
 
     it('shouldnt be initilaized without calling init', async () => {
@@ -76,51 +76,51 @@ describe('System', () => {
         expect(System.initialized).toBe(true)
 
         const res1 = await System.realmCreate(1)
-        expect(kernelMock.realmCreate).toBeCalledWith(1)
+        expect(kernelMock.realm_create).toBeCalledWith(1)
         expect(res1).toEqual({ status: Status.OK, handle: INVALID_HANDLE })
 
         const res2 = await System.processCreate(2, 'name', 3)
-        expect(kernelMock.processCreate).toBeCalledWith(2, 'name', 3)
+        expect(kernelMock.process_create).toBeCalledWith(2, 'name', 3)
         expect(res2).toEqual({ status: Status.OK, handle: INVALID_HANDLE })
 
         const res3 = await System.processStart(4, 5)
-        expect(kernelMock.processStart).toBeCalledWith(4, 5)
+        expect(kernelMock.process_start).toBeCalledWith(4, 5)
         expect(res3).toEqual({ status: Status.OK })
 
         const res4 = await System.channelCreate(6)
-        expect(kernelMock.channelCreate).toBeCalledWith(6)
+        expect(kernelMock.channel_create).toBeCalledWith(6)
         expect(res4).toEqual({ status: Status.OK, first: INVALID_HANDLE, second: INVALID_HANDLE })
 
         const res5 = await System.channelRead(7)
-        expect(kernelMock.channelRead).toBeCalledWith(7)
+        expect(kernelMock.channel_read).toBeCalledWith(7)
         expect(res5).toEqual({ status: Status.OK })
 
         const res6 = await System.channelReadEtc(8)
-        expect(kernelMock.channelReadEtc).toBeCalledWith(8)
+        expect(kernelMock.channel_read_etc).toBeCalledWith(8)
         expect(res6).toEqual({ status: Status.OK })
 
         const res7 = await System.channelWrite(9, new Uint8Array(), [1, 2, 3])
-        expect(kernelMock.channelWrite).toBeCalledWith(9, new Uint8Array(), [1, 2, 3])
+        expect(kernelMock.channel_write).toBeCalledWith(9, new Uint8Array(), [1, 2, 3])
         expect(res7).toEqual({ status: Status.OK, numBytes: 0 })
 
         const res8 = await System.channelWriteEtc(10, new Uint8Array(), [
             { handle: 1, type: HandleType.HANDLE, rights: 0, operation: 0 }
         ])
-        expect(kernelMock.channelWriteEtc).toBeCalledWith(10, new Uint8Array(), [
+        expect(kernelMock.channel_write_etc).toBeCalledWith(10, new Uint8Array(), [
             { handle: 1, type: HandleType.HANDLE, rights: 0, operation: 0 }
         ])
         expect(res8).toEqual({ status: Status.OK, numBytes: 0 })
 
         const res9 = await System.handleDuplicate(11)
-        expect(kernelMock.handleDuplicate).toBeCalledWith(11)
+        expect(kernelMock.handle_duplicate).toBeCalledWith(11)
         expect(res9).toEqual({ status: Status.OK, handle: INVALID_HANDLE })
 
         const res10 = await System.handleReplace(12, 13)
-        expect(kernelMock.handleReplace).toBeCalledWith(12, 13)
+        expect(kernelMock.handle_replace).toBeCalledWith(12, 13)
         expect(res10).toEqual({ status: Status.OK, handle: INVALID_HANDLE })
 
         const res11 = await System.handleClose(14)
-        expect(kernelMock.handleClose).toBeCalledWith(14)
+        expect(kernelMock.handle_close).toBeCalledWith(14)
         expect(res11).toEqual({ status: Status.OK })
     })
 

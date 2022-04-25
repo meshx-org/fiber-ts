@@ -67,23 +67,23 @@ export interface HandleDisposition {
 
 export interface ISyscalls {
     // Handle operations.
-    handleDuplicate: (handle: Handle) => HandleResult
-    handleReplace: (handle: Handle, replacement: Handle) => HandleResult
-    handleClose: (handle: Handle) => Result
+    handle_duplicate: (handle: Handle) => HandleResult
+    handle_replace: (handle: Handle, replacement: Handle) => HandleResult
+    handle_close: (handle: Handle) => Result
 
     // Channel operations.
-    channelCreate(process: Process): HandlePairResult
-    channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]): WriteResult
-    channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult
-    channelRead(channel: Channel): ReadResult
-    channelReadEtc(channel: Channel): ReadEtcResult
+    channel_create(process: Process): HandlePairResult
+    channel_write(channel: Channel, data: Uint8Array, handles: Handle[]): WriteResult
+    channel_write_etc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult
+    channel_read(channel: Channel): ReadResult
+    channel_read_etc(channel: Channel): ReadEtcResult
 
     // Realm operations.
-    realmCreate: (parent: Realm) => HandleResult
+    realm_create: (parent: Realm) => HandleResult
 
     // Process operations.
-    processCreate: (parent: Realm, name: string, program: Handle) => HandleResult
-    processStart: (process: Process, bootstrap: Handle) => Result
+    process_create: (parent: Realm, name: string, program: Handle) => HandleResult
+    process_start: (process: Process, bootstrap: Handle) => Result
 
     // Memory operations.
     // memoryCreate: (size: number) => HandleResult

@@ -21,7 +21,10 @@ export type IDispatchSyscall<T extends Result = Result> = (
     args: unknown[]
 ) => Promise<T>
 
-/// This class is used to dispatch syscalls directly or indirectly.
+/**
+ * This class is used to dispatch syscalls directly or indirectly.
+ * @public
+ */
 export class System {
     public static initialized = false
 
@@ -49,130 +52,61 @@ export class System {
         this.useDirectCalls = true
     }
 
-    private static checkInit() {
+    private static doSyscall<T extends Result>(namespace: string, name: string, syscallArgs: unknown[]): Promise<T> {
         if (this.initialized === false) throw new NotInitialized()
-    }
-
-    public static async handleDuplicate(handle: Handle) {
-        this.checkInit()
 
         if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.handleDuplicate(handle)
-            return Promise.resolve(result)
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const result = this.syscallInterface![`${namespace}_${name}`](...syscallArgs)
+            return Promise.resolve<T>(result)
         }
 
-        return this.syscall('handle', 'duplicate', [handle]) as Promise<HandleResult>
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return this.syscall!(namespace, name, syscallArgs) as Promise<T>
     }
 
-    public static async handleReplace(handle: Handle, replacement: Handle) {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.handleReplace(handle, replacement)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('handle', 'replace', [handle, replacement]) as Promise<HandleResult>
+    public static handleDuplicate(handle: Handle) {
+        return this.doSyscall<HandleResult>('handle', 'duplicate', [handle])
     }
 
-    public static async handleClose(handle: Handle): Promise<Result> {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.handleClose(handle)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('handle', 'close', [handle]) as Promise<Result>
+    public static handleReplace(handle: Handle, replacement: Handle) {
+        return this.doSyscall<HandleResult>('handle', 'replace', [handle, replacement])
     }
 
-    public static async realmCreate(parent: Realm): Promise<HandleResult> {
-        this.checkInit()
+    public static handleClose(handle: Handle): Promise<Result> {
+        return this.doSyscall<Result>('handle', 'close', [handle])
+    }
 
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.realmCreate(parent)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('realm', 'create', [parent])
+    public static realmCreate(parent: Realm) {
+        return this.doSyscall<HandleResult>('realm', 'create', [parent])
     }
 
     // TODO: replace program handle with Memory type
-    public static async processCreate(parent: Realm, name: string, program: Handle): Promise<HandleResult> {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.processCreate(parent, name, program)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('process', 'create', [parent, name, program])
+    public static processCreate(parent: Realm, name: string, program: Handle): Promise<HandleResult> {
+        return this.doSyscall<HandleResult>('process', 'create', [parent, name, program])
     }
 
-    public static async processStart(process: Process, bootstrap: Channel): Promise<Result> {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.processStart(process, bootstrap)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('process', 'start', [process, bootstrap])
+    public static processStart(process: Process, bootstrap: Channel) {
+        return this.doSyscall<Result>('process', 'start', [process, bootstrap])
     }
 
-    public static async channelCreate(process: Process) {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            // TODO: fix hardcoded handle
-            const result = this.syscallInterface?.channelCreate(process)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('channel', 'create', [process]) as Promise<HandlePairResult>
+    public static channelCreate(process: Process) {
+        return this.doSyscall<HandlePairResult>('channel', 'create', [process])
     }
 
-    public static async channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]) {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.channelWrite(channel, data, handles)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('channel', 'write', [channel, data, handles]) as Promise<WriteResult>
+    public static channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]) {
+        return this.doSyscall<WriteResult>('channel', 'write', [channel, data, handles])
     }
 
-    public static async channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]) {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.channelWriteEtc(channel, data, dispositions)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('channel', 'write_etc', [channel, data, dispositions]) as Promise<WriteResult>
+    public static channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]) {
+        return this.doSyscall<WriteResult>('channel', 'write_etc', [channel, data, dispositions])
     }
 
-    public static async channelRead(channel: Channel) {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.channelRead(channel)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('channel', 'read', [channel]) as Promise<ReadResult>
+    public static channelRead(channel: Channel) {
+        return this.doSyscall<ReadResult>('channel', 'read', [channel])
     }
 
-    public static async channelReadEtc(channel: Channel) {
-        this.checkInit()
-
-        if (this.useDirectCalls === true) {
-            const result = this.syscallInterface?.channelReadEtc(channel)
-            return Promise.resolve(result)
-        }
-
-        return this.syscall('channel', 'read_etc', [channel]) as Promise<ReadEtcResult>
+    public static channelReadEtc(channel: Channel): Promise<ReadEtcResult> {
+        return this.doSyscall<ReadEtcResult>('channel', 'read_etc', [channel])
     }
 }

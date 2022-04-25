@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "declaration": true,
-        "jsx": "preserve",
+        "jsx": "react",
         "noImplicitAny": false,
         "removeComments": true,
         "noLib": false,
@@ -13,8 +13,20 @@
         "esModuleInterop": true,
         "target": "es6",
         "sourceMap": true,
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "baseUrl": "."
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            
+        }
     },
-    "exclude": ["node_modules", "__tests__", "**/*.spec.ts", "**/*.test.ts"]
+    "exclude": [
+        "node_modules",
+        "__tests__",
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
 }

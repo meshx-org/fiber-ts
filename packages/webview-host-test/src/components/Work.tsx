@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-const appleWorker = new Worker(new URL('work.ts', import.meta.url), { type: 'module' })
+const appleWorker = new Worker(new URL('../work.ts', import.meta.url), { type: 'module' })
 
 const WorkComp = () => {
     const [countApple, setCountApple] = useState<number>(0)

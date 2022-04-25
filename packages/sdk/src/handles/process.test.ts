@@ -1,4 +1,4 @@
-import { INVALID_HANDLE, Status } from '@fiber/types'
+import { INVALID_HANDLE, Status } from '@meshx-org/fiber-types'
 import { ChannelPair, Realm } from '.'
 import { System } from '../system'
 import { Process } from './process'
@@ -45,7 +45,7 @@ describe('SDK Process Handle', () => {
         const { first: bootstrap } = await ChannelPair.create(parentProcess)
         const process = await Process.create(rootRealm, 'test_process', INVALID_HANDLE)
 
-        process.start(bootstrap)
+        process.start(bootstrap!)
 
         expect(recorder.syscalls).toHaveLength(3)
         expect(recorder.syscalls[2]).toEqual({

@@ -10,7 +10,7 @@ export class Channel extends HandleWrapper {
             return Promise.resolve({ status: Status.ERR_INVALID_ARGS }) as Promise<WriteResult>
         }
 
-        const rawHandles = handles.map((h) => h.raw)
+        const rawHandles = handles ? handles.map((h) => h.raw) : []
 
         return System.channelWrite(this.raw, data, rawHandles ?? [])
     }
@@ -44,19 +44,19 @@ export class Channel extends HandleWrapper {
 /// zx_channel_create() syscall used to create them.
 export class ChannelPair extends HandleWrapperPair<Channel> {
     static async create(parent: Process): Promise<ChannelPair> {
-        const result = await System.channelCreate(parent.raw)
+        const { status, first, second } = await System.channelCreate(parent.raw)
 
-        const first = new Channel(result.first)
-        const second = new Channel(result.second)
-
-        if (result.status !== Status.OK) {
+        if (status !== Status.OK) {
             return new ChannelPair(null, null)
         }
 
-        return new ChannelPair(first, second)
+        const firstChannel = new Channel(first!)
+        const secondChannel = new Channel(second!)
+
+        return new ChannelPair(firstChannel, secondChannel)
     }
 
-    private constructor(first?: Channel, second?: Channel) {
+    private constructor(first: Channel | null, second: Channel | null) {
         super(first, second)
     }
 }

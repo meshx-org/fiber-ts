@@ -10,6 +10,6 @@ export class Realm extends HandleWrapper {
             return new Realm(INVALID_HANDLE)
         }
 
-        return new Realm(handle)
+        return new Realm(handle!)
     }
 }

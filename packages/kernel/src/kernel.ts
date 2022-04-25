@@ -76,41 +76,41 @@ export default class Kernel implements ISyscalls {
     }
 
     // #region handle operations
-    public handleDuplicate(handle: RawHandle): HandleResult {
+    public handle_duplicate(handle: RawHandle): HandleResult {
         this.klog.log('handleDuplicate', handle)
         return { status: Status.OK, handle: INVALID_HANDLE }
     }
 
-    public handleReplace(handle: RawHandle, replacement: RawHandle): HandleResult {
+    public handle_replace(handle: RawHandle, replacement: RawHandle): HandleResult {
         this.klog.log('handleReplace', handle, replacement)
         return { status: Status.OK, handle: INVALID_HANDLE }
     }
 
-    public handleClose(handle: RawHandle): Result {
+    public handle_close(handle: RawHandle): Result {
         this.klog.log('handleClose', handle)
         return { status: Status.OK }
     }
     // #endregion
 
     // #region realm operations
-    public realmCreate(parent: RawHandle): Result {
+    public realm_create(parent: RawHandle): Result {
         this.klog.log('realmCreate', parent)
         return { status: Status.OK }
     }
 
-    public realmListen(realm: RawHandle, multiaddr: string, channel: RawChannel): Result {
+    public realm_listen(realm: RawHandle, multiaddr: string, channel: RawChannel): Result {
         this.klog.log('realmListen', realm, multiaddr, channel)
         return { status: Status.OK }
     }
 
-    public realmDial(realm: RawHandle, multiaddr: string, channel: RawChannel): Result {
+    public realm_dial(realm: RawHandle, multiaddr: string, channel: RawChannel): Result {
         this.klog.log('realmDial')
         return { status: Status.OK }
     }
     // #endregion
 
     // #region process operations
-    public processCreate(parentRealm: RawRealm, name: string, programVmo: RawHandle): HandleResult {
+    public process_create(parentRealm: RawRealm, name: string, programVmo: RawHandle): HandleResult {
         this.klog.log('processCreate', parentRealm, programVmo)
 
         let handleId: number
@@ -134,34 +134,38 @@ export default class Kernel implements ISyscalls {
         return { status: Status.OK, handle: handleId }
     }
 
-    public processStart(process: RawProcess, bootChannel: RawChannel) {
+    public process_start(process: RawProcess, bootChannel: RawChannel) {
         this.klog.log('processStart', process)
         return { status: Status.OK }
     }
     // #endregion
 
     // #region channel operations
-    public channelCreate(): HandlePairResult {
+    public channel_create(): HandlePairResult {
         this.klog.log('channelCreate')
         return { status: Status.OK, first: INVALID_HANDLE, second: INVALID_HANDLE }
     }
 
-    public channelWrite(channel: RawHandle, data: Uint8Array, handles: RawHandle[]): WriteResult {
+    public channel_write(channel: RawHandle, data: Uint8Array, handles: RawHandle[]): WriteResult {
         this.klog.log('channelWrite', channel, data, handles)
         return { status: Status.OK, numBytes: 0 }
     }
 
-    public channelWriteEtc(channel: RawHandle, data: Uint8Array, handleDispositions: HandleDisposition[]): WriteResult {
+    public channel_write_etc(
+        channel: RawHandle,
+        data: Uint8Array,
+        handleDispositions: HandleDisposition[]
+    ): WriteResult {
         this.klog.log('channelWriteEtc', channel, data, handleDispositions)
         return { status: Status.OK, numBytes: 0 }
     }
 
-    public channelRead(channel: RawHandle): ReadResult {
+    public channel_read(channel: RawHandle): ReadResult {
         this.klog.log('channelRead', channel)
         return { status: Status.OK, numBytes: 0, bytes: new Uint8Array(0), handles: [] }
     }
 
-    public channelReadEtc(channel: RawHandle): ReadEtcResult {
+    public channel_read_etc(channel: RawHandle): ReadEtcResult {
         this.klog.log('channelReadEtc', channel)
         return { status: Status.OK, numBytes: 0, bytes: new Uint8Array(0), handleInfos: [] }
     }
