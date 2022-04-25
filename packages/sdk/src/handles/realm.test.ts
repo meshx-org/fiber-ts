@@ -5,18 +5,18 @@ import { Realm } from '.'
 const ROOT_REALM_RAW = 1
 
 describe('SDK Realm Handle', () => {
-  let recorder: SyscallRecorder
-  let rootRealm: Realm
+    let recorder: SyscallRecorder
+    let rootRealm: Realm
 
-  beforeAll(() => {
-    recorder = new SyscallRecorder()
-    System.init(recorder.dispatch)
-  })
+    beforeAll(() => {
+        recorder = new SyscallRecorder()
+        System.init(recorder.dispatch)
+    })
 
-  beforeEach(async () => {
-    rootRealm = new Realm(ROOT_REALM_RAW)
-    recorder.reset()
-  })
+    beforeEach(async () => {
+        rootRealm = new Realm(ROOT_REALM_RAW)
+        recorder.reset()
+    })
 
-  test.todo('should be able to create a handle')
+    test.todo('should be able to create a handle')
 })

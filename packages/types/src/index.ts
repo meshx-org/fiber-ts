@@ -14,7 +14,7 @@ export enum Status {
 }
 
 export interface Result extends Object {
-  status: number
+    status: number
 }
 
 // prettier-ignore
@@ -26,70 +26,70 @@ export enum HandleType {
 }
 
 export interface HandleResult extends Result {
-  handle?: Handle
+    handle?: Handle
 }
 
 export interface HandlePairResult extends Result {
-  first?: Handle
-  second?: Handle
+    first?: Handle
+    second?: Handle
 }
 
 export interface HandleInfo extends Result {
-  handle: Handle
-  type: number
-  rights: number
+    handle: Handle
+    type: number
+    rights: number
 }
 
 export interface ReadResult extends Result {
-  bytes?: ArrayBuffer
-  numBytes?: number
-  handles?: Array<Handle>
+    bytes?: ArrayBuffer
+    numBytes?: number
+    handles?: Array<Handle>
 }
 
 export interface ReadEtcResult extends Result {
-  bytes?: ArrayBuffer
-  numBytes?: number
-  handleInfos?: Array<HandleInfo>
+    bytes?: ArrayBuffer
+    numBytes?: number
+    handleInfos?: Array<HandleInfo>
 }
 
 export interface WriteResult extends Result {
-  numBytes: number
+    numBytes: number
 }
 
 export enum HandleOp {}
 
 export interface HandleDisposition {
-  operation: HandleOp
-  handle: Handle
-  type: HandleType
-  rights: number // HandleRights enum
+    operation: HandleOp
+    handle: Handle
+    type: HandleType
+    rights: number // HandleRights enum
 }
 
 export interface ISyscalls {
-  // Handle operations.
-  handleDuplicate: (handle: Handle) => HandleResult
-  handleReplace: (handle: Handle, replacement: Handle) => HandleResult
-  handleClose: (handle: Handle) => Result
+    // Handle operations.
+    handleDuplicate: (handle: Handle) => HandleResult
+    handleReplace: (handle: Handle, replacement: Handle) => HandleResult
+    handleClose: (handle: Handle) => Result
 
-  // Channel operations.
-  channelCreate(process: Process): HandlePairResult
-  channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]): WriteResult
-  channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult
-  channelRead(channel: Channel): ReadResult
-  channelReadEtc(channel: Channel): ReadEtcResult
+    // Channel operations.
+    channelCreate(process: Process): HandlePairResult
+    channelWrite(channel: Channel, data: Uint8Array, handles: Handle[]): WriteResult
+    channelWriteEtc(channel: Channel, data: Uint8Array, dispositions: HandleDisposition[]): WriteResult
+    channelRead(channel: Channel): ReadResult
+    channelReadEtc(channel: Channel): ReadEtcResult
 
-  // Realm operations.
-  realmCreate: (parent: Realm) => HandleResult
+    // Realm operations.
+    realmCreate: (parent: Realm) => HandleResult
 
-  // Process operations.
-  processCreate: (parent: Realm, name: string, program: Handle) => HandleResult
-  processStart: (process: Process, bootstrap: Handle) => Result
+    // Process operations.
+    processCreate: (parent: Realm, name: string, program: Handle) => HandleResult
+    processStart: (process: Process, bootstrap: Handle) => Result
 
-  // Memory operations.
-  // memoryCreate: (size: number) => HandleResult
-  // memoryWrite: (handle: Handle, offset: number, data: Uint8Array) => WriteResult
-  // memoryRead: (handle: Handle, offset: number, length: number) => ReadResult
-  // memoryCreateChild: (parent: Handle, offset: number, size: number) => HandleResult
+    // Memory operations.
+    // memoryCreate: (size: number) => HandleResult
+    // memoryWrite: (handle: Handle, offset: number, data: Uint8Array) => WriteResult
+    // memoryRead: (handle: Handle, offset: number, length: number) => ReadResult
+    // memoryCreateChild: (parent: Handle, offset: number, size: number) => HandleResult
 }
 
 export * from './rawhandles'

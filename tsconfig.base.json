@@ -1,27 +1,20 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "jsx": "preserve",
-    "noImplicitAny": false,
-    "removeComments": true,
-    "noLib": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "target": "es6",
-    "sourceMap": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "baseUrl": "."
-  },
-  "exclude": [
-    "node_modules",
-    "__tests__",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": true,
+        "jsx": "preserve",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "target": "es6",
+        "sourceMap": true,
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "baseUrl": "."
+    },
+    "exclude": ["node_modules", "__tests__", "**/*.spec.ts", "**/*.test.ts"]
 }

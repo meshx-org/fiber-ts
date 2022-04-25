@@ -1,8 +1,8 @@
 {
-  "name": "fiber-tests",
-  "version": "0.0.0",
-  "description": "",
-  "dependencies": {
-    "@fiber/kernel": "0.0.1"
-  }
+    "name": "fiber-tests",
+    "version": "0.0.0",
+    "description": "",
+    "dependencies": {
+        "@fiber/kernel": "0.0.1"
+    }
 }

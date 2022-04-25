@@ -1,31 +1,29 @@
 {
-  "root": true,
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.eslint.json",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
-  "plugins": [
-    "@typescript-eslint"
-  ],
-  "extends": [
-    "airbnb-base",
-    "airbnb-typescript/base",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier"
-  ],
-  "rules": {
-    "import/extensions": "off",
-    "import/prefer-default-export": "off",
-    "class-methods-use-this": "warn",
-    "import/no-cycle": "warn",
-    "max-classes-per-file": "off",
-    "lines-between-class-members": "off",
-    /*"@typescript-eslint/naming-convention": [
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.eslint.json",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "airbnb-base",
+        "airbnb-typescript/base",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+    ],
+    "rules": {
+        "import/extensions": "off",
+        "import/prefer-default-export": "off",
+        "class-methods-use-this": "warn",
+        "import/no-cycle": "warn",
+        "max-classes-per-file": "off",
+        "lines-between-class-members": "off",
+        /*"@typescript-eslint/naming-convention": [
       "error",
       {
         "selector": "interface",
@@ -36,17 +34,17 @@
         }
       }
     ],*/
-    "@typescript-eslint/lines-between-class-members": "off",
-    "no-restricted-globals": ["off", "self"],
-    "@typescript-eslint/no-unused-vars": [
-      "warn",
-      {
-        "argsIgnorePattern": "^_"
-      }
-    ]
-  },
-  "env": {
-    "browser": true,
-    "node": true
-  }
+        "@typescript-eslint/lines-between-class-members": "off",
+        "no-restricted-globals": ["off", "self"],
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "^_"
+            }
+        ]
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    }
 }

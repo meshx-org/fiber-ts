@@ -17,12 +17,12 @@ const site = `
 `
 
 const requestListener: http.RequestListener = (req, res) => {
-  res.writeHead(200, {
-    'Content-Type': 'text/html',
-    'Cross-Origin-Embedder-Policy': 'require-corp',
-    'Cross-Origin-Resource-Policy': 'cross-origin'
-  })
-  res.end(site)
+    res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cross-Origin-Embedder-Policy': 'require-corp',
+        'Cross-Origin-Resource-Policy': 'cross-origin'
+    })
+    res.end(site)
 }
 
 const server1 = http.createServer(requestListener)
