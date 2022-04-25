@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://meshx.co/open-source/fiber",
   "workspaces": [
-    "./pkg/*"
+    "./packages/*"
   ],
   "scripts": {
     "prepare": "husky install && npm run compile",
