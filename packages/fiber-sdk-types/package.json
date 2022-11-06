@@ -1,0 +1,24 @@
+{
+    "name": "@meshx-org/fiber-sdk-types",
+    "version": "0.0.2-alpha.7",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "src/**",
+        "dist/**"
+    ],
+    "devDependencies": {
+        "tsconfig": "*"
+    },
+    "scripts": {
+        "build": "tsc",
+        "clean": "rm -rf dist",
+        "start:dev:old": "tsc -w",
+        "lint": "eslint \"src/**/*.ts*\""
+    },
+    "repository": "https://github.com/meshx-org/fiber-ts",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "gitHead": "cd48c15418173603beac71f57d9f9196e4351534"
+}

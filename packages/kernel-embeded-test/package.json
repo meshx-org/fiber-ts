@@ -1,0 +1,29 @@
+{
+    "name": "@meshx-org/kernel-embeder-test",
+    "version": "0.0.2-alpha.4",
+    "private": true,
+    "scripts": {
+        "clean": "rm -rf dist",
+        "build": "parcel build src/index.html --dist-dir ./dist",
+        "start:dev:web": "parcel src/index.html",
+        "start:dev:realms": "ts-node server/server.ts",
+        "start:dev:old": "concurrently \"npm run start:dev:web\" \"npm run start:dev:realms\""
+    },
+    "dependencies": {
+        "@meshx-org/fiber-kernel": "^0.0.2-alpha.11",
+        "@meshx-org/fiber-sdk-old": "^0.0.2-alpha.7",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "jotai": "1.6.4"
+    },
+    "devDependencies": {
+        "typescript": "^4.7.4",
+        "parcel": "^2.7.0",
+        "@types/react": "^17.0.39",
+        "@types/react-dom": "^17.0.11",
+        "buffer": "^6.0.3",
+        "path-browserify": "^1.0.1",
+        "process": "^0.11.10",
+        "concurrently": "*"
+    }
+}

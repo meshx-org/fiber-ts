@@ -1,0 +1,35 @@
+{
+    "name": "@meshx-org/fiber-sdk",
+    "version": "0.0.2-alpha.7",
+    "description": "SDK for Fiber capability runtime",
+    "author": "Roland Szarka-Kovács <Roland.Szarka-Kovacs@meshx.co>",
+    "repository": "https://github.com/meshx-org/fiber-ts",
+    "license": "apache-2.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "publishConfig": {
+        "main": "./target/index.js",
+        "access": "restricted",
+        "registry": "https://npm.pkg.github.com"
+    },
+    "scripts": {
+        "build": "tsup-node src/index.ts --dts --format cjs,esm",
+        "clean": "rm -rf dist",
+        "start:dev": "tsup-node src/index.ts --watch  --dts --format cjs,esm",
+        "lint": "eslint \"src/**/*.ts*\""
+    },
+    "dependencies": {
+        "@meshx-org/fiber-kernel-types": "*",
+        "@meshx-org/fiber-sys": "*"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.2.2",
+        "tsconfig": "*",
+        "typescript": "^4.7.4"
+    }
+}

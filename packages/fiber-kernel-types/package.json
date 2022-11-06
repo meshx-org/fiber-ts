@@ -1,0 +1,26 @@
+{
+    "name": "@meshx-org/fiber-kernel-types",
+    "version": "0.0.3",
+    "main": "./dist/index.js",
+    "type": "module",
+    "types": "./dist/index.d.ts",
+    "repository": "https://github.com/meshx-org/fiber-ts",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup-node src/index.ts --dts --format cjs,esm",
+        "start:dev": "tsup-node src/index.ts --watch --dts --format cjs,esm",
+        "clean": "rm -rf dist",
+        "lint": "eslint \"src/**/*.ts*\""
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/node": "^18",
+        "tsconfig": "*"
+    }
+}

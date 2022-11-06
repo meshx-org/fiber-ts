@@ -1,3 +1,6 @@
+.parcel-cache
+.turbo
+
 # Logs
 logs
 *.log

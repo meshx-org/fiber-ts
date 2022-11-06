@@ -1,0 +1,24 @@
+{
+    "name": "@meshx-org/example-webview-component",
+    "version": "0.0.2-alpha.4",
+    "main": "src/index.html",
+    "private": true,
+    "dependencies": {
+        "@meshx-org/fiber-sdk": "^0.0.2-alpha.7",
+        "@meshx-org/fiber-sdk-types": "*",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2"
+    },
+    "scripts": {
+        "build": "parcel build src/index.html",
+        "start:dev": "parcel --port 9999 src/index.html "
+    },
+    "devDependencies": {
+        "parcel": "^2.3.2",
+        "@types/react": "^17.0.39",
+        "@types/react-dom": "^17.0.11",
+        "buffer": "^6.0.3",
+        "path-browserify": "^1.0.1",
+        "process": "^0.11.10"
+    }
+}

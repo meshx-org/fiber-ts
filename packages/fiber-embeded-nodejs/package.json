@@ -1,0 +1,26 @@
+{
+    "name": "@meshx-org/fiber-embeded-nodejs",
+    "version": "0.1.0",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+     "scripts": {
+        "build": "tsc",
+        "clean": "rm -rf dist",
+        "start:dev": "tsnd --respawn src/index.ts",
+        "lint": "eslint \"src/**/*.ts*\""
+    },
+    "dependencies": {
+        "@meshx-org/fiber-kernel": "*",
+        "@meshx-org/fiber-kernel-types": "*",
+        "@meshx-org/fiber-sdk": "*",
+        "@meshx-org/fiber-sys": "*",
+        "ses": "^0.17.0"
+    },
+    "devDependencies": {
+        "tsconfig": "*",
+        "@types/node": "^18",
+        "nodemon": "^2.0.20",
+        "typescript": "^4.7.4"
+    }
+}

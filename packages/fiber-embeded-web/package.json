@@ -1,0 +1,27 @@
+{
+    "name": "@meshx-org/fiber-embeded-web",
+    "version": "0.1.0",
+    "scripts": {
+        "clean": "rm -rf dist",
+        "start:dev": "vite --port 3000",
+        "build": "parcel build src/index.html --dist-dir ./dist",
+        "lint": "eslint \"src/**/*.ts*\""
+    },
+    "dependencies": {
+        "@libp2p/peer-store": "^5.0.0",
+        "@meshx-org/fiber-kernel": "*",
+        "@meshx-org/fiber-sdk": "*",
+        "libp2p": "^0.40.0"
+    },
+    "devDependencies": {
+        "@types/react": "^17.0.39",
+        "@types/react-dom": "^17.0.11",
+        "parcel": "^2.7.0",
+        "tsconfig": "*",
+        "typescript": "^4.7.4",
+        "@vitejs/plugin-react": "^2.2.0",
+        "@originjs/vite-plugin-commonjs": "1.0.3",
+        "vite": "^3.2.2"
+    }
+}
+ 
