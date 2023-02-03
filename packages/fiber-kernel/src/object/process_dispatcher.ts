@@ -1,9 +1,10 @@
 import { Result } from '../result'
-import { fx_rights_t, fx_status_t, Status, u32 } from '@meshx-org/fiber-kernel-types'
+import { fx_rights_t, fx_status_t, Status, fx_policy_t, u32, fx_handle_t, i64 } from '@meshx-org/fiber-kernel-types'
 import { Dispatcher } from './dispatcher'
 import { KernelHandle } from './handle'
 import { JobDispatcher } from './job_dispatcher'
 import { VmarDispatcher } from './vmar_dispatcher'
+import { HandleTable } from './handle_table'
 
 interface ProcessContext {
     dispatcher: ProcessDispatcher
@@ -17,25 +18,29 @@ export function scope<T extends Function>(context: ProcessContext, fn: T) {
     TL_SCOPES.pop()
 }
 
-class HandleTable {}
-
 export interface ProcessSharedState {
     handleTable: HandleTable
 }
 
 export class ProcessDispatcher extends Dispatcher {
     sharedState: ProcessSharedState
+    name_: string
 
-    private constructor(parent_job: JobDispatcher, name: String, flags: u32) {
+    private constructor(parent_job: JobDispatcher, name: string, flags: u32) {
         super()
+        this.name_ = name
         this.sharedState = {
             handleTable: new HandleTable()
         }
     }
 
+    public enforceBasicPolicy(policy: fx_policy_t): fx_status_t {
+        return Status.OK
+    }
+
     public static create(
         parent_job: JobDispatcher,
-        name: String,
+        name: string,
         flags: u32
     ): Result<[KernelHandle<ProcessDispatcher>, fx_rights_t, KernelHandle<VmarDispatcher>, fx_rights_t], Status> {
         let handle = new KernelHandle(new ProcessDispatcher(parent_job, name, flags))
@@ -78,9 +83,19 @@ export class ProcessDispatcher extends Dispatcher {
         throw new Error('on_handle_count_zero not implemented.')
     }
 
-    public getCurrent(): ProcessDispatcher {
+    public static getCurrent(): ProcessDispatcher {
         let last = TL_SCOPES[scope.length - 1]
         return last.dispatcher
+    }
+
+    public static exitCurrent(retCode: i64) { 
+        // TODO
+        let last = TL_SCOPES[scope.length - 1]
+        last.dispatcher
+    }
+
+    public getName(): string {
+        return this.name_
     }
 
     public handleTable(): HandleTable {

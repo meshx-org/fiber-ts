@@ -20,7 +20,8 @@
     },
     "dependencies": {
         "@meshx-org/fiber-kernel-types": "*",
-        "@meshx-org/fiber-sys": "*"
+        "@meshx-org/fiber-sys": "*",
+        "denque": "*"
     },
     "devDependencies": {
         "@types/node": "^18",

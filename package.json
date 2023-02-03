@@ -5,7 +5,6 @@
         "./packages/*"
     ],
     "scripts": {
-        "prepare": "husky install",
         "test": "turbo run test",
         "build": "turbo run build",
         "start:dev": "turbo run start:dev --output-logs=new-only --no-cache --parallel",
@@ -17,7 +16,6 @@
         "release": "turbo run build --filter=docs^... && changeset publish"
     },
     "devDependencies": {
-        "husky": "^7.0.4",
         "jest": "^27.5.1",
         "lint-staged": "^12.3.4",
         "prettier": "^2.5.1",

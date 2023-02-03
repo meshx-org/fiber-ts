@@ -63,7 +63,7 @@ export class JobDispatcher extends Dispatcher {
 
         this.#procs.push(process)
 
-        // TODO:  UpdateSignalsLocked();
+        // TODO:  UpdateSignals();
         return true
     }
 

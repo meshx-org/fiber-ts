@@ -2,12 +2,19 @@ export type fx_handle_t = number
 export type fx_status_t = number
 export type fx_vaddr_t = number
 export type fx_rights_t = number
+export type fx_koid_t = number
+export type fx_txid_t = number
+export type fx_signals_t = number
+export type fx_policy_t = number
 
 export type u32 = number
 export type i64 = bigint
 
 export const FX_INVALID_HANDLE = 0
-export const FX_INVALID_KOID = 0
+export const FX_KOID_INVALID = 0
+
+export const FX_MAX_NAME_LEN = 100
+export const FX_PROCESS_SHARED = 1
 
 export const FX_RIGHT_NONE: fx_rights_t = 0
 export const FX_RIGHT_DUPLICATE: fx_rights_t = 1 << 0
@@ -33,6 +40,9 @@ export const FX_RIGHT_APPLY_PROFILE: fx_rights_t = 1 << 19
 export const FX_RIGHT_MANAGE_SOCKET: fx_rights_t = 1 << 20
 export const FX_RIGHT_SAME_RIGHTS: fx_rights_t = 1 << 31
 
+
+export const FX_POL_NEW_PROCESS = 1
+
 export function todo() {
     throw new Error('not implemented')
 }
@@ -40,8 +50,18 @@ export function todo() {
 export enum Status {
     OK = 1,
     ERR_UNSUPPORTED = 2,
-    ERR_OUT_OF_RANGE = 3,
-    ERR_BAD_STATE = 4
+    ERR_CANCELED = 3,
+    ERR_OUT_OF_RANGE = 4,
+    ERR_BAD_STATE = 5,
+    ERR_BUFFER_TOO_SMALL = 6,
+    ERR_BAD_HANDLE = 7,
+    ERR_SHOULD_WAIT = 8,
+    ERR_PEER_CLOSED = 9,
+    ERR_INVALID_ARGS = 10
+}
+
+export enum Signal { 
+    CHANNEL_READABLE = 1
 }
 
 export class Ref<T> {
